@@ -3,6 +3,7 @@
 ## Requirements
 
 * Java, HTML, CSS, JS, some framework...
+* JDK 8
 * NetBean 8.2
 * Apache Tomcat 8.0.27
 
