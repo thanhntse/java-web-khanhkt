@@ -23,7 +23,7 @@ import thanhnt.registration.RegistrationDTO;
  * @author thinkpad
  */
 public class SearchLatstnameServlet extends HttpServlet {
-    private final String SEARCH_PAGE = "search.html";
+    private final String SEARCH_PAGE = "searchBegin.jsp";
     private final String RESULT_PAGE = "search.jsp";
 
     /**

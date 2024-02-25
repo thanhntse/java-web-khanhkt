@@ -23,7 +23,7 @@ import thanhnt.registration.RegistrationDAO;
  */
 public class StartUpServlet extends HttpServlet {
     private final String LOGIN_PAGE = "login.html";
-    private final String SEARCH_PAGE = "search.jsp";
+    private final String SEARCH_PAGE = "searchBegin.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
