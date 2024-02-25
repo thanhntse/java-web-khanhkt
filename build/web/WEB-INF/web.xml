@@ -16,6 +16,10 @@
         <servlet-name>StartUpServlet</servlet-name>
         <servlet-class>thanhnt.servlet.StartUpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateAccountServlet</servlet-name>
+        <servlet-class>thanhnt.servlet.UpdateAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>StartUpServlet</servlet-name>
         <url-pattern>/StartUpServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccountServlet</servlet-name>
+        <url-pattern>/UpdateAccountServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

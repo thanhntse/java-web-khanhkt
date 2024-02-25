@@ -23,6 +23,8 @@
                 <font color="red">
                     Welcome, <%= username %>
                 </font>
+                <br/>
+                <a href="login.html">Log out</a>
         <%
             }//end cookies are existed
         %>
