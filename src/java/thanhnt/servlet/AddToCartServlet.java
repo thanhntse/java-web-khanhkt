@@ -7,29 +7,19 @@ package thanhnt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import thanhnt.cart.CartObject;
 
 /**
  *
  * @author thinkpad
  */
-@WebServlet(name = "DispatchServlet", urlPatterns = {"/DispatchServlet"})
-public class DispatchServlet extends HttpServlet {
-    private final String LOGIN_PAGE = "login.html";
-    private final String LOGIN_CONTROLLER = "LoginServlet";
-    private final String SEARCH_LASTNAME_CONTROLLER = "SearchLatstnameServlet";
-    private final String DELETE_ACCOUNT_CONTROLLER = "DeleteAccountServlet";
-    private final String STARTUP_CONTROLLER = "StartUpServlet";
-    private final String UPDATE_ACCOUNT_CONTROLLER = "UpdateAccountServlet";
-    private final String ADD_TO_CART_CONTROLLER = "AddToCartServlet";
-    
-    private final String VIEW_CART_PAGE = "viewCart.jsp";
-
+public class AddToCartServlet extends HttpServlet {
+    private final String PRODUCT_PAGE = "product.html";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,32 +32,23 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        //1. Which button did user click?
-        String button = request.getParameter("btnAction"); //chua click button = null
-        String url = LOGIN_PAGE;
-        
+        String url = PRODUCT_PAGE;
         try {
-            if (button == null) { //first time
-                //do nothing --> transfer to LOGIN PAGE
-                // check cookies
-                url = STARTUP_CONTROLLER;
-            } else if (button.equals("Login")) { //user clicked login 
-                url = LOGIN_CONTROLLER;
-            } else if (button.equals("Search")) { //user clicked search
-                url = SEARCH_LASTNAME_CONTROLLER;
-            } else if (button.equals("delete")) { //user clicked delete
-                url = DELETE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Update")){
-                url = UPDATE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Add Book to Your Cart")){
-                url = ADD_TO_CART_CONTROLLER;
-            } else if (button.equals("View Your Cart")){
-                url = VIEW_CART_PAGE;
-            }
+           //1. Cust goes to the cart place
+            HttpSession session = request.getSession();
+           //2. Cust takes his/her cart
+            CartObject cart = (CartObject)session.getAttribute("CART");
+            if (cart == null) {
+                cart = new CartObject();
+            }// cart has not existes
+           //3. Cust drops item into his/her cart
+           String item = request.getParameter("cboBook");
+           cart.addItemToCart(item);
+           session.setAttribute("CART", cart);
+           //4. Cust continuely goes shopping
+           
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            response.sendRedirect(url);
         }
     }
 
