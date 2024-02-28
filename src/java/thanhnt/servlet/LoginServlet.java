@@ -66,6 +66,7 @@ public class LoginServlet extends HttpServlet {
             ex.printStackTrace();
         } finally {
             response.sendRedirect(url);
+            //dung forward se ra JsessionID
 //            RequestDispatcher rd = request.getRequestDispatcher(url);
 //            rd.forward(request, response);
             out.close();

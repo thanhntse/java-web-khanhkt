@@ -24,6 +24,10 @@
         <servlet-name>AddToCartServlet</servlet-name>
         <servlet-class>thanhnt.servlet.AddToCartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GoShoppingServlet</servlet-name>
+        <servlet-class>thanhnt.servlet.GoShoppingServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>AddToCartServlet</servlet-name>
         <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoShoppingServlet</servlet-name>
+        <url-pattern>/GoShoppingServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

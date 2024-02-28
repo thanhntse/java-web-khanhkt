@@ -60,9 +60,9 @@ public class DispatchServlet extends HttpServlet {
                 url = DELETE_ACCOUNT_CONTROLLER;
             } else if (button.equals("Update")){
                 url = UPDATE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Add Book to Your Cart")){
+            } else if (button.equals("Add to my Cart")){
                 url = ADD_TO_CART_CONTROLLER;
-            } else if (button.equals("View Your Cart")){
+            } else if (button.equals("View my Cart")){
                 url = VIEW_CART_PAGE;
             }
         } finally {

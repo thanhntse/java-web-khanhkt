@@ -19,7 +19,7 @@ import thanhnt.cart.CartObject;
  * @author thinkpad
  */
 public class AddToCartServlet extends HttpServlet {
-    private final String PRODUCT_PAGE = "product.html";
+    private final String PRODUCT_PAGE = "product.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
