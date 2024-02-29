@@ -26,12 +26,14 @@
                     if (items != null) {
                         //4. Show all item
                         %>
+                        <form action="DispatchServlet">
                         <table border="1">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Name</th>
                                     <th>Quantity</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,12 +51,29 @@
                                             <td>
                                                 <%= items.get(key) %>
                                             </td>
+                                            <td>
+                                                <input type="checkbox" name="chkItem" 
+                                                       value="<%= key %>" />
+                                            </td>
                                         </tr>
                                 <%
                                     }// traveses items
                                 %>
+                                <tr>
+                                    <td colspan="3">
+                                        <a href="product.jsp">
+                                            Add more to my Cart
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Remove" name="btnAction" />
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
+                        </form>
+
+                                
 
         <%
                         return;

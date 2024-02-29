@@ -28,6 +28,10 @@
         <servlet-name>GoShoppingServlet</servlet-name>
         <servlet-class>thanhnt.servlet.GoShoppingServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveItemFromCartServlet</servlet-name>
+        <servlet-class>thanhnt.servlet.RemoveItemFromCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>GoShoppingServlet</servlet-name>
         <url-pattern>/GoShoppingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveItemFromCartServlet</servlet-name>
+        <url-pattern>/RemoveItemFromCartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

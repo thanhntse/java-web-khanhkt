@@ -7,29 +7,19 @@ package thanhnt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.Map;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import thanhnt.cart.CartObject;
 
 /**
  *
  * @author thinkpad
  */
-@WebServlet(name = "DispatchServlet", urlPatterns = {"/DispatchServlet"})
-public class DispatchServlet extends HttpServlet {
-    private final String LOGIN_PAGE = "login.html";
-    private final String LOGIN_CONTROLLER = "LoginServlet";
-    private final String SEARCH_LASTNAME_CONTROLLER = "SearchLatstnameServlet";
-    private final String DELETE_ACCOUNT_CONTROLLER = "DeleteAccountServlet";
-    private final String STARTUP_CONTROLLER = "StartUpServlet";
-    private final String UPDATE_ACCOUNT_CONTROLLER = "UpdateAccountServlet";
-    private final String ADD_TO_CART_CONTROLLER = "AddToCartServlet";
-    private final String REMOVE_ITEM_FROM_CART_CONTROLLER = "RemoveItemFromCartServlet";
-    
-    private final String VIEW_CART_PAGE = "viewCart.jsp";
+public class RemoveItemFromCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,34 +33,33 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        //1. Which button did user click?
-        String button = request.getParameter("btnAction"); //chua click button = null
-        String url = LOGIN_PAGE;
-        
         try {
-            if (button == null) { //first time
-                //do nothing --> transfer to LOGIN PAGE
-                // check cookies
-                url = STARTUP_CONTROLLER;
-            } else if (button.equals("Login")) { //user clicked login 
-                url = LOGIN_CONTROLLER;
-            } else if (button.equals("Search")) { //user clicked search
-                url = SEARCH_LASTNAME_CONTROLLER;
-            } else if (button.equals("delete")) { //user clicked delete
-                url = DELETE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Update")){
-                url = UPDATE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Add to my Cart")){
-                url = ADD_TO_CART_CONTROLLER;
-            } else if (button.equals("View my Cart")){
-                url = VIEW_CART_PAGE;
-            } else if (button.equals("Remove")){
-                url = REMOVE_ITEM_FROM_CART_CONTROLLER;
-            }
+            //1. Cust goes to his/her cart
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                //2. Cust takes his/her cart
+                CartObject cart = (CartObject)session.getAttribute("CART");
+                if (cart != null) {
+                    //3. Cust gets items
+                    Map<String, Integer> items = cart.getItems();
+                    if (items != null) {
+                        //4. Cust remove items from cart
+                        String[] selectedItems = request.getParameterValues("chkItem");
+                        if (selectedItems != null) {
+                            for (String item : selectedItems) {
+                                cart.removeItemFromCart(item);
+                            }// remove action is success
+                            session.setAttribute("CART", cart);
+                        }// selectedItems have existed
+                    }// items have existed
+                }// cart has existed
+            }// session has existed
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            //refresh --> call previous function using urlRewriting technique
+            String urlRewriting = "DispatchServlet"
+                    + "?btnAction=View my Cart";
+            //dung forward bi duplcate btnAction
+            response.sendRedirect(urlRewriting);
         }
     }
 
