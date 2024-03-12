@@ -6,20 +6,23 @@
 package thanhnt.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Properties;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import thanhnt.cart.CartObject;
+import thanhnt.util.ApplicationConstants;
 
 /**
  *
  * @author thinkpad
  */
 public class AddToCartServlet extends HttpServlet {
-    private final String PRODUCT_PAGE = "product.jsp";
+//    private final String PRODUCT_PAGE = "product.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,23 +35,30 @@ public class AddToCartServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = PRODUCT_PAGE;
+        //0. Get Context Scope & get siteMaps
+        ServletContext context = this.getServletContext();
+        Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
+
+        String url = siteMaps.getProperty(ApplicationConstants.AddToCartFeature.PRODUCT_PAGE);
         try {
-           //1. Cust goes to the cart place
+            //1. Cust goes to the cart place
             HttpSession session = request.getSession();
-           //2. Cust takes his/her cart
-            CartObject cart = (CartObject)session.getAttribute("CART");
+            //2. Cust takes his/her cart
+            CartObject cart = (CartObject) session.getAttribute("CART");
             if (cart == null) {
                 cart = new CartObject();
             }// cart has not existes
-           //3. Cust drops item into his/her cart
-           String item = request.getParameter("cboBook");
-           cart.addItemToCart(item);
-           session.setAttribute("CART", cart);
-           //4. Cust continuely goes shopping
-           
+            //3. Cust drops item into his/her cart
+            String item = request.getParameter("cboProduct");
+            cart.addItemToCart(item);
+            session.setAttribute("CART", cart);
+            //4. Cust continuely goes shopping
+
         } finally {
-            response.sendRedirect(url);
+            String urlRewriting = "DispatchServlet?"
+                    + "btnAction=Go to Shopping";
+            //dung forward bi duplcate btnAction
+            response.sendRedirect(urlRewriting);
         }
     }
 

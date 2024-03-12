@@ -7,6 +7,7 @@
 <%@page import="java.util.Map"%>
 <%@page import="thanhnt.cart.CartObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +16,7 @@
     </head>
     <body>
         <h1>Your Cart</h1>
-        <%
+        <%--    <%
             //1. Cust goes to cart place
             if (session != null) {
                 //2. Cust take his/her cart (existes)
@@ -25,65 +26,67 @@
                     Map<String, Integer> items = cart.getItems();
                     if (items != null) {
                         //4. Show all item
-                        %>
-                        <form action="DispatchServlet">
-                        <table border="1">
-                            <thead>
+                        %>      --%>
+        <c:set var="result" value="${sessionScope.CART}" />
+        <c:if test="${not empty result}">
+            <c:set var="items" value="${result.items}" />
+            <c:if test="${not empty items}">
+                <form action="DispatchServlet">
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="key" items="${items.keySet()}" varStatus="counter">
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Name</th>
-                                    <th>Quantity</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    int count = 0;
-                                    for (String key : items.keySet()) {
-                                        %>
-                                        <tr>
-                                            <td>
-                                                <%= ++count %>
-                                            .</td>
-                                            <td>
-                                                <%= key %>
-                                            </td>
-                                            <td>
-                                                <%= items.get(key) %>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" name="chkItem" 
-                                                       value="<%= key %>" />
-                                            </td>
-                                        </tr>
-                                <%
-                                    }// traveses items
-                                %>
-                                <tr>
-                                    <td colspan="3">
-                                        <a href="product.jsp">
-                                            Add more to my Cart
-                                        </a>
+                                    <td>
+                                        ${counter.count}
+                                        .</td>
+                                    <td>
+                                        ${key}
                                     </td>
                                     <td>
-                                        <input type="submit" value="Remove" name="btnAction" />
+                                        ${items.get(key)}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="chkItem" 
+                                               value="${key}" />
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                        </form>
+                            </c:forEach>
 
-                                
-
-        <%
-                        return;
-                    }
-                }//end cart has existed
-            }//session has existed
-        %>
-        
-        <h2 style="color:red">
-            No cart is NOT EXISTED!!!
-        </h2>
+                            <tr>
+                                <td colspan="3">
+                                    <c:url var="addMoreToCartLink" value="DispatchServlet">
+                                        <c:param name="btnAction" value="Go to Shopping" />
+                                    </c:url>
+                                    <a href="${addMoreToCartLink}">
+                                        Add more to my Cart
+                                    </a>
+                                </td>
+                                <td>
+                                    <input type="submit" value="Remove" name="btnAction" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </c:if>
+            <c:if test="${empty items}">
+                <h2 style="color:red">
+                    EMPTY Cart!!!
+                </h2>
+            </c:if>
+        </c:if>
+        <c:if test="${empty result}">
+            <h2 style="color:red">
+                Cart is NOT EXISTED!!!
+            </h2>
+        </c:if>
     </body>
 </html>

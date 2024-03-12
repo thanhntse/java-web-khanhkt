@@ -6,21 +6,24 @@
 package thanhnt.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Properties;
 import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import thanhnt.registration.RegistrationDAO;
+import thanhnt.util.ApplicationConstants;
 
 /**
  *
  * @author thinkpad
  */
 public class UpdateAccountServlet extends HttpServlet {
-    private final String ERRORS_PAGE = "errors.html";
+//    private final String ERRORS_PAGE = "errors.html";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,6 +36,10 @@ public class UpdateAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        //0. Get Context Scope & get siteMaps
+        ServletContext context = this.getServletContext();
+        Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
+
         //1. get all parameters
         String username = request.getParameter("txtUsername");
         String password = request.getParameter("txtPassword");
@@ -40,26 +47,26 @@ public class UpdateAccountServlet extends HttpServlet {
         if ("ON".equals(request.getParameter("chkAdmin"))) {
             isAdmin = true;
         }
-        String searchValue= request.getParameter("lastSearchValue");
-        
-        String url = ERRORS_PAGE;
+        String searchValue = request.getParameter("lastSearchValue");
+
+        String url = siteMaps.getProperty(ApplicationConstants.UpdateAccountFeature.ERROR_PAGE);
         try {
-               //2. Call model
-               //2.1 New DAO
-               RegistrationDAO dao = new RegistrationDAO();
-               //2.2 Call method of DAO
-               boolean result = dao.updateAccount(username, password, isAdmin);
-               //3. process result
-               if (result) {
-                   //call the previous features again using URL rewriting technique
-                   url = "DispatchServlet"
-                           + "?btnAction=Search"
-                           + "&txtSearchValue=" + searchValue;
-               } //end delete action is success     
+            //2. Call model
+            //2.1 New DAO
+            RegistrationDAO dao = new RegistrationDAO();
+            //2.2 Call method of DAO
+            boolean result = dao.updateAccount(username, password, isAdmin);
+            //3. process result
+            if (result) {
+                //call the previous features again using URL rewriting technique
+                url = "DispatchServlet"
+                        + "?btnAction=Search"
+                        + "&txtSearchValue=" + searchValue;
+            } //end delete action is success     
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log("UpdateAccountServlet _ SQL: " + ex.getMessage());
         } catch (NamingException ex) {
-            ex.printStackTrace();
+            log("UpdateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
             //forward has issues because btnAction has duplicate
             response.sendRedirect(url);

@@ -6,25 +6,27 @@
 package thanhnt.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import thanhnt.registration.RegistrationDAO;
 import thanhnt.registration.RegistrationDTO;
+import thanhnt.util.ApplicationConstants;
 
 /**
  *
  * @author thinkpad
  */
 public class SearchLatstnameServlet extends HttpServlet {
-    private final String SEARCH_PAGE = "searchBegin.jsp";
-    private final String RESULT_PAGE = "search.jsp";
+//    private final String SEARCH_PAGE = "searchBegin.jsp";
+//    private final String RESULT_PAGE = "search.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,30 +40,32 @@ public class SearchLatstnameServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        //0. Get Context Scope & get siteMaps
+        ServletContext context = this.getServletContext();
+        Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
+
         //1. get all client information
         String searchValue = request.getParameter("txtSearchValue");
-        String url = SEARCH_PAGE;
-        
+//        String url = SEARCH_PAGE;
+        String url = siteMaps.getProperty(ApplicationConstants.SearchLatstnameFeature.SEARCH_PAGE);
+
         try {
             if (!searchValue.trim().isEmpty()) {
                 //2. Call model
-                    //2.1. new DAO
-                    RegistrationDAO dao = new RegistrationDAO();
-                    //2.2 call method of DAO
-                    dao.searchLastname(searchValue);
-                    List<RegistrationDTO> result = dao.getAccounts();
+                //2.1. new DAO
+                RegistrationDAO dao = new RegistrationDAO();
+                //2.2 call method of DAO
+                dao.searchLastname(searchValue);
+                List<RegistrationDTO> result = dao.getAccounts();
                 //3. process Result
-                    url = RESULT_PAGE;
-                    request.setAttribute("SEARCH_RESULT", result);
+//                    url = RESULT_PAGE;
+                request.setAttribute("SEARCH_RESULT", result);
             }//user typed valid value
-        } 
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        catch (NamingException ex) {
-            ex.printStackTrace();;
-        }
-        finally {
+        } catch (SQLException ex) {
+            log("SearchLatstnameServlet _ SQL: " + ex.getMessage());
+        } catch (NamingException ex) {
+            log("SearchLatstnameServlet _ Naming: " + ex.getMessage());
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

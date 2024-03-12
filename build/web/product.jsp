@@ -8,6 +8,7 @@
 <%@page import="thanhnt.product.ProductDTO"%>
 <%@page import="thanhnt.product.ProductDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,38 +16,34 @@
         <title>Product</title>
     </head>
     <body>
-        <h1>Book Store</h1>
-        <%
+        <h1>Convenience Store</h1>
+        <%-- <%
             ProductDAO dao = new ProductDAO();
             dao.searchAllProduct();
             List<ProductDTO> result = dao.getProducts();
             if (result != null) {
-                %>
-                <form action="DispatchServlet">
-                    Choose product <select name="cboBook">
-                        <%
-                            for (ProductDTO dto : result) {
-                                %>
-                                <option>
-                                    <%= dto.getName() %>
-                                </option>
-                        <%
-                            }
-                        %>
-                    </select> <br/>
-                    <input type="submit" value="Add to my Cart" name="btnAction" />
-                    <input type="submit" value="View my Cart" name="btnAction" />
-                </form>
-        <%
-            } else {
-                %>
-                <h2>
-                    <font color="">
-                        No product available!!!
-                    </font>
-                </h2>
-        <%
-            }
-        %>
+                %> --%>
+
+        <c:set var="result" value="${requestScope.PRODUCT_AVAILABLE}" />
+        <c:if test="${not empty result}">
+            <form action="DispatchServlet">
+                Choose product <select name="cboProduct">
+                    <c:forEach var="dto" items="${result}">
+                        <option>
+                            ${dto.name}
+                        </option>
+                    </c:forEach>
+                </select> <br/>
+                <input type="submit" value="Add to my Cart" name="btnAction" />
+                <input type="submit" value="View my Cart" name="btnAction" />
+            </form>
+        </c:if>
+        <c:if test="${empty result}">
+            <h2>
+                <font color="">
+                No product available!!!
+                </font>
+            </h2>
+        </c:if>
     </body>
 </html>
