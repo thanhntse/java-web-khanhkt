@@ -39,7 +39,7 @@ public class StartUpServlet extends HttpServlet {
         //0. Get Context Scope & get siteMaps
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        
+
         String url = siteMaps.getProperty(ApplicationConstants.StartUpFeature.LOGIN_PAGE);
         try {
 //            //1. check existed cookies?
@@ -57,11 +57,13 @@ public class StartUpServlet extends HttpServlet {
 //                    url = SEARCH_PAGE;
 //                } //username and password are authenticated
 //            } //end cookies are existed
-            
-            HttpSession session = request.getSession();
-            RegistrationDTO user = (RegistrationDTO) session.getAttribute("USER");
-            if (user != null) {
-                url = siteMaps.getProperty(ApplicationConstants.StartUpFeature.SEARCH_PAGE);
+
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                RegistrationDTO user = (RegistrationDTO) session.getAttribute("USER");
+                if (user != null) {
+                    url = siteMaps.getProperty(ApplicationConstants.StartUpFeature.SEARCH_PAGE);
+                }
             }
         } finally {
             response.sendRedirect(url);

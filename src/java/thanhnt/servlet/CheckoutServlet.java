@@ -108,7 +108,8 @@ public class CheckoutServlet extends HttpServlet {
                                 //5. remove cart
                                 session.removeAttribute("CART");
                                 //6. Cust continue goes to shopping --> transfer to product page (if any)
-                                url = siteMaps.getProperty(ApplicationConstants.CheckoutFeature.GO_TO_SHOPPING_CONTROLLER);
+                                request.setAttribute("TOTAL_PRICE", total);
+                                url = siteMaps.getProperty(ApplicationConstants.CheckoutFeature.SUCCESS_PAGE);
                             }
                         }
 

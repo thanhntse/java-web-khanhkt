@@ -42,8 +42,10 @@ public class LogoutServlet extends HttpServlet {
         String url = siteMaps.getProperty(ApplicationConstants.LogoutFeature.LOGIN_PAGE);
 
         try {
-            HttpSession session = request.getSession();
-            session.removeAttribute("USER");
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.removeAttribute("USER");
+            }
         } finally {
             response.sendRedirect(url);
         }

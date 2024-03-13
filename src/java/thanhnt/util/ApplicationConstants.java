@@ -81,5 +81,6 @@ public class ApplicationConstants {
         public static final String ERROR_PAGE = "errorsPage";
         public static final String GO_TO_SHOPPING_CONTROLLER = "goToShoppingController";
         public static final String VIEW_CART_PAGE = "viewCartPage";
+        public static final String SUCCESS_PAGE = "successPage";
     }
 }
