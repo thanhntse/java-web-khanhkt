@@ -24,6 +24,7 @@ public class ApplicationConstants {
         public static final String CREATE_ACCOUNT_CONTROLLER = "createAccountController";
         public static final String LOGOUT_CONTROLLER = "logoutController";
         public static final String GO_TO_SHOPPING_CONTROLLER = "goToShoppingController";
+        public static final String CHECKOUT_CONTROLLER = "checkoutController";
         public static final String VIEW_CART_PAGE = "viewCartPage";
     }
     
@@ -73,5 +74,12 @@ public class ApplicationConstants {
     public class GoToShoppingFeature {
 
         public static final String PRODUCT_PAGE = "productPage";
+    }
+    
+    public class CheckoutFeature {
+
+        public static final String ERROR_PAGE = "errorsPage";
+        public static final String GO_TO_SHOPPING_CONTROLLER = "goToShoppingController";
+        public static final String VIEW_CART_PAGE = "viewCartPage";
     }
 }

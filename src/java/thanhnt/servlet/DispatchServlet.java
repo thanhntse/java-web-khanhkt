@@ -97,6 +97,8 @@ public class DispatchServlet extends HttpServlet {
             } else if (button.equals("Go to Shopping")) {
 //                url = LOGOUT_CONTROLLER;
                 url = siteMaps.getProperty(ApplicationConstants.DispatchFeature.GO_TO_SHOPPING_CONTROLLER);
+            } else if (button.equals("Checkout")) {
+                url = siteMaps.getProperty(ApplicationConstants.DispatchFeature.CHECKOUT_CONTROLLER);
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

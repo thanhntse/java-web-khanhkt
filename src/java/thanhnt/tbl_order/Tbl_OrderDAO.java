@@ -3,82 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thanhnt.product;
+package thanhnt.tbl_order;
 
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.naming.NamingException;
 import thanhnt.util.DBHelper;
+import thanhnt.util.Tools;
 
 /**
  *
  * @author thinkpad
  */
-public class ProductDAO implements Serializable {
+public class Tbl_OrderDAO implements Serializable {
 
-    private List<ProductDTO> products;
-
-    public List<ProductDTO> getProducts() {
-        return products;
-    }
-
-    public void searchAllProduct()
-            throws SQLException, /*ClassNotFoundException,*/ NamingException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        boolean result = false; //output co 1 dau ra, su dung bien boolean
-
-        try {
-            //1. get connection
-            con = DBHelper.getConnection();
-            if (con != null) {
-                //2. create SQL string
-                String sql = "Select sku, name, description, unitPrice, quantity, status "
-                        + "From Product "
-                        + "Where status = 1 and quantity > 0";
-                //3. Create Statement Object
-                stm = con.prepareStatement(sql);
-                //4. Execute query
-                rs = stm.executeQuery();
-                //5. Process result
-                while (rs.next()) {
-                    //5.1 get data from ResultSet
-                    String sku = rs.getString("sku");
-                    String name = rs.getString("name");
-                    String description = rs.getString("description");
-                    double unitPrice = rs.getDouble("unitPrice");
-                    boolean status = rs.getBoolean("status");
-                    int quantity = rs.getInt("quantity");
-
-                    //5.2 set data into DTO properties
-                    ProductDTO dto = new ProductDTO(sku, name, description,
-                            unitPrice, quantity, status);
-                    if (this.products == null) {
-                        this.products = new ArrayList<>();
-                    } //end accounts have NOT existed
-                    this.products.add(dto);
-                } // end account has existed
-            } //end connection has been available
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
-    }
-
-    public boolean updateQuantity(String id, int quantity)
+    public boolean createOrder(Tbl_OrderDTO order)
             throws SQLException, /*ClassNotFoundException,*/ NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -90,9 +32,50 @@ public class ProductDAO implements Serializable {
             con = DBHelper.getConnection();
             if (con != null) {
                 //2. create SQL string
-                String sql = "Update Product "
-                        + "Set quantity = quantity - " + quantity + " "
-                        + "Where sku = ?";
+                String sql = "Insert Into tbl_Order("
+                        + "id, date, total"
+                        + ") Values("
+                        + "?, ?, ?"
+                        + ")";
+                //3. Create Statement Object
+                stm = con.prepareStatement(sql);
+                stm.setString(1, order.getId());
+                stm.setString(2, order.getDate());
+                stm.setDouble(3, order.getTotal());
+
+                //4. execute query
+                int effectRows = stm.executeUpdate();
+                //5. Process result
+                if (effectRows > 0) {
+                    result = true;
+                }
+            } //end connection has been available
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean updateTotalPrice(String id, double total)
+            throws SQLException, /*ClassNotFoundException,*/ NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+//        boolean result = false; //output co 1 dau ra, su dung bien boolean
+        boolean result = false;
+
+        try {
+            //1. get connection
+            con = DBHelper.getConnection();
+            if (con != null) {
+                //2. create SQL string
+                String sql = "Update tbl_Order "
+                        + "Set total = " + total + " "
+                        + "Where id = ?";
                 //3. Create Statement Object
                 stm = con.prepareStatement(sql);
                 stm.setString(1, id);
@@ -114,7 +97,7 @@ public class ProductDAO implements Serializable {
         return result;
     }
 
-    public int getQuantity(String id)
+    public int getLastestId()
             throws SQLException, /*ClassNotFoundException,*/ NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -127,16 +110,17 @@ public class ProductDAO implements Serializable {
             con = DBHelper.getConnection();
             if (con != null) {
                 //2. create SQL string
-                String sql = "SELECT quantity "
-                        + "FROM Product "
-                        + "WHERE sku='" + id + "'";
+                String sql = "SELECT TOP 1 id "
+                        + "FROM tbl_Order "
+                        + "ORDER BY id DESC";
                 //3. Create Statement Object
                 stm = con.prepareStatement(sql);
                 //4. execute query
                 rs = stm.executeQuery();
                 //5. Process result
                 if (rs.next()) {
-                    result = rs.getInt("quantity");
+                    String id = rs.getString("id");
+                    result = Tools.getNumberInCode(id, "HD");
                 }
             } //end connection has been available
         } finally {

@@ -84,6 +84,18 @@
                         </tbody>
                     </table>
                 </form>
+
+                <form action="DispatchServlet">
+                    <input type="submit" value="Checkout" name="btnAction" />
+                </form>
+                <c:set var="errors" value="${requestScope.ORDER_DETAIL_ERRORS}" />     
+                <c:if test="${not empty errors.notEnoughQuantity}">
+                    <font color="red">
+                    <c:forEach var="error" items="${errors.notEnoughQuantity}">
+                        ${error} <br/>
+                    </c:forEach>
+                    </font> <br/>
+                </c:if>
             </c:if>
             <c:if test="${empty items}">
                 <h2 style="color:red">
