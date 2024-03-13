@@ -54,9 +54,9 @@ public class GoToShoppingServlet extends HttpServlet {
             //3. process Result
             request.setAttribute("PRODUCT_AVAILABLE", result);
         } catch (SQLException ex) {
-            log("SearchLatstnameServlet _ SQL: " + ex.getMessage());
+            log("GoToShoppingServlet _ SQL: " + ex.getMessage());
         } catch (NamingException ex) {
-            log("SearchLatstnameServlet _ Naming: " + ex.getMessage());
+            log("GoToShoppingServlet _ Naming: " + ex.getMessage());
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

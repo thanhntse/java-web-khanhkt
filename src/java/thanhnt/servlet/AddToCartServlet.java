@@ -6,7 +6,11 @@
 package thanhnt.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +57,10 @@ public class AddToCartServlet extends HttpServlet {
             session.setAttribute("CART", cart);
             //4. Cust continuely goes shopping
 
+        } catch (SQLException ex) {
+            log("AddToCartServlet _ SQL: " + ex.getMessage());
+        } catch (NamingException ex) {
+            log("AddToCartServlet _ Naming: " + ex.getMessage());
         } finally {
             String urlRewriting = "DispatchServlet?"
                     + "btnAction=Go to Shopping";

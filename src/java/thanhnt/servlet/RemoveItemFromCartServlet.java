@@ -6,6 +6,7 @@
 package thanhnt.servlet;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import thanhnt.cart.CartObject;
+import thanhnt.product.ProductDTO;
 
 /**
  *
@@ -40,7 +42,8 @@ public class RemoveItemFromCartServlet extends HttpServlet {
                 CartObject cart = (CartObject) session.getAttribute("CART");
                 if (cart != null) {
                     //3. Cust gets items
-                    Map<String, Integer> items = cart.getItems();
+//                    Map<String, Integer> items = cart.getItems();
+                    List<ProductDTO> items = cart.getItems();
                     if (items != null) {
                         //4. Cust remove items from cart
                         String[] selectedItems = request.getParameterValues("chkItem");

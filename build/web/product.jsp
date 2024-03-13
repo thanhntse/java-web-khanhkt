@@ -29,7 +29,7 @@
             <form action="DispatchServlet">
                 Choose product <select name="cboProduct">
                     <c:forEach var="dto" items="${result}">
-                        <option>
+                        <option value="${dto.sku}">
                             ${dto.name}
                         </option>
                     </c:forEach>

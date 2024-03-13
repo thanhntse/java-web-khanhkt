@@ -37,31 +37,39 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Name</th>
+                                <th>Unit Price</th>
                                 <th>Quantity</th>
+                                <th>Total Price</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="key" items="${items.keySet()}" varStatus="counter">
+                            <c:forEach var="item" items="${items}" varStatus="counter">
                                 <tr>
                                     <td>
                                         ${counter.count}
                                         .</td>
                                     <td>
-                                        ${key}
+                                        ${item.name}
                                     </td>
                                     <td>
-                                        ${items.get(key)}
+                                        ${item.unitPrice} $
+                                    </td>
+                                    <td>
+                                        ${item.quantity}
+                                    </td>
+                                    <td>
+                                        ${item.quantity * item.unitPrice} $
                                     </td>
                                     <td>
                                         <input type="checkbox" name="chkItem" 
-                                               value="${key}" />
+                                               value="${item.sku}" />
                                     </td>
                                 </tr>
                             </c:forEach>
 
                             <tr>
-                                <td colspan="3">
+                                <td colspan="5">
                                     <c:url var="addMoreToCartLink" value="DispatchServlet">
                                         <c:param name="btnAction" value="Go to Shopping" />
                                     </c:url>
