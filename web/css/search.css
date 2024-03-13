@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 13, 2024, 8:20:37 PM
+    Author     : thinkpad
+*/
+
+body {
+    font-family: Arial, sans-serif;
+}
+.welcome-section {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.welcome-message {
+    color: #10b981;
+    font-size: 18px;
+}
+
+.logout-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.logout-link:hover {
+    color: #0056b3;
+}
+
+.search-page-title {
+    color: #333;
+    font-size: 24px;
+    margin-top: 20px;
+}
+.search-form {
+    margin-top: 10px;
+}
+.search-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    width: 300px; 
+    margin-bottom: 10px; 
+    font-size: 16px; 
+}
+
+input[type="submit"] {
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    background-color: #007bff; 
+    color: #fff; 
+    cursor: pointer; 
+    font-size: 16px; 
+    transition: background-color 0.3s; 
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3; 
+}
+
+
+.result-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.result-table th,
+.result-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.result-table th {
+    background-color: #f2f2f2;
+}
+
+.no-record-message {
+    color: #ff0000;
+    font-size: 16px;
+    margin-top: 20px;
+    text-align: center
+}

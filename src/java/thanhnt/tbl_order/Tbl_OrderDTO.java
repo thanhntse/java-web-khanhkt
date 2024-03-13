@@ -6,7 +6,6 @@
 package thanhnt.tbl_order;
 
 import java.io.Serializable;
-import java.util.Date;
 import thanhnt.util.Tools;
 
 /**

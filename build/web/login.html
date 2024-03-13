@@ -9,17 +9,38 @@ and open the template in the editor.
         <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/login.css">
     </head>
     <body>
-        <h1>Login Page</h1>
-        <form action="DispatchServlet" method="POST">
-            Username <input type="text" name="txtUsername" value="" /><br/>
-            Password <input type="password" name="txtPassword" value="" /><br/>
-            <input type="submit" value="Login" name="btnAction" />
-            <input type="reset" value="Reset" />
-        </form>
-        <br/>
-        <a href="DispatchServlet?btnAction=Go to Shopping">Go to Shopping</a> <br/>
-        <a href="createAccount.html">Sign Up</a>
+        <div class="login-container">
+            <h2>Login</h2>
+            <form action="DispatchServlet" method="POST">
+                <div>
+                    <label for="username">Username:</label> <br/>
+                    <input type="text" id="username" name="txtUsername" 
+                           value="">
+                </div>
+                <div>
+                    <label for="password">Password:</label> <br/>
+                    <input type="password" id="password" name="txtPassword"
+                           value="">
+                </div>
+                <div class="login-button">
+                    <input type="submit" value="Login" name="btnAction">
+                    <input type="reset" value="Reset" />
+                </div>
+            </form>
+            <br/>
+            <div class="sign-up">
+                <p style="color:#6b7280;margin: 0px">You don't have an account?</p>
+                <a href="createAccount.html">Sign Up</a>
+            </div>
+        </div>
+        <div>
+            <form action="DispatchServlet">
+                <input type="submit" value="Go to Shopping" name="btnAction"
+                       style="background-color: #34d399; font-size: 18px">
+            </form>
+        </div>
     </body>
 </html>

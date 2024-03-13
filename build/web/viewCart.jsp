@@ -13,9 +13,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cart</title>
+        <link rel="stylesheet" href="./css/viewCart.css">
     </head>
     <body>
-        <h1>Your Cart</h1>
+        <h1 style="text-align: center">Your Cart</h1>
         <%--    <%
             //1. Cust goes to cart place
             if (session != null) {
@@ -53,13 +54,13 @@
                                         ${item.name}
                                     </td>
                                     <td>
-                                        ${item.unitPrice} $
+                                        $${item.unitPrice}
                                     </td>
                                     <td>
                                         ${item.quantity}
                                     </td>
                                     <td>
-                                        ${item.quantity * item.unitPrice} $
+                                        $${item.quantity * item.unitPrice}
                                     </td>
                                     <td>
                                         <input type="checkbox" name="chkItem" 
@@ -98,14 +99,16 @@
                 </c:if>
             </c:if>
             <c:if test="${empty items}">
-                <h2 style="color:red">
-                    EMPTY Cart!!!
+                <h2 style="color:red;text-align: center">
+                    <img src="images/cartempty.png" alt="cartempty"/>
+                    <div>EMPTY Cart!!!</div>
                 </h2>
             </c:if>
         </c:if>
         <c:if test="${empty result}">
-            <h2 style="color:red">
-                Cart is NOT EXISTED!!!
+            <h2 style="color:red;text-align: center">
+                <img src="images/cartempty.png" alt="cartempty"/>
+                <div>Cart is NOT EXISTED!!!</div>
             </h2>
         </c:if>
     </body>

@@ -11,11 +11,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Success</title>
+        <link rel="stylesheet" href="./css/success.css">
     </head>
     <body>
-        <h1 style="color:green">Checkout successfully!!!</h1>
+        <h1>Checkout successfully!!!</h1>
         <c:set var="total" value="${requestScope.TOTAL_PRICE}" />
-        <h3>Your total price is: ${total}$</h3>
+        <h3>Your total price is: $${total}</h3>
         <br/>
         <a href="DispatchServlet?btnAction=Go to Shopping">Go to Shopping</a> <br/>
     </body>

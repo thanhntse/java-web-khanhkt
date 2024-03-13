@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.naming.NamingException;
-import thanhnt.tbl_order.Tbl_OrderDTO;
 import thanhnt.util.DBHelper;
 
 /**

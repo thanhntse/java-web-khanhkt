@@ -9,15 +9,41 @@ and open the template in the editor.
         <title>Creat</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/login.css">
     </head>
     <body>
-        <h1>Registration</h1>
-        <form action="DispatchServlet" method="POST">
-            Username* <input type="text" name="txtUsername" value="" /> ( 6 - 20 chars ) <br/>
-            Password* <input type="password" name="txtPassword" value="" /> ( 6 - 30 chars ) <br/>
-            Confirm* <input type="password" name="txtConfirm" value="" /> <br/>
-            Full name* <input type="text" name="txtFullname" value="" /> ( 2 - 50 chars ) <br/>
-            <input type="submit" value="Create new account" name="btnAction" />
-        </form>
+        <div class="login-container">
+            <h2>Registration</h2>
+            <form action="DispatchServlet" method="POST">
+                <div>
+                    <label for="username">Username*:</label> ( 6 - 20 chars ) <br/>
+                    <input type="text" id="username" name="txtUsername" 
+                           value=""> 
+                </div>
+                <div>
+                    <label for="password">Password*:</label> ( 6 - 30 chars )  <br/>
+                    <input type="password" id="password" name="txtPassword"
+                           value=""> 
+                </div>
+                <div>
+                    <label for="confirm">Confirm*:</label> <br/>
+                    <input type="password" id="confirm" name="txtConfirm"
+                           value="">
+                </div>
+                <div>
+                    <label for="fullname">Full name*:</label> ( 2 - 50 chars ) <br/>
+                    <input type="text" id="fullname" name="txtFullname"
+                           value=""> 
+                </div>
+                <div>
+                    <input type="submit" value="Create new account" name="btnAction">
+                </div>
+            </form>
+            <br/>
+            <div class="sign-up">
+                <p style="color:#6b7280;margin: 0px">You already a member?</p>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
     </body>
 </html>
