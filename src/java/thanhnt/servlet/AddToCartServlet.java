@@ -36,10 +36,9 @@ public class AddToCartServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //0. Get Context Scope & get siteMaps
-        ServletContext context = this.getServletContext();
-        Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
+//        ServletContext context = this.getServletContext();
+//        Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
 
-        String url = siteMaps.getProperty(ApplicationConstants.AddToCartFeature.PRODUCT_PAGE);
         try {
             //1. Cust goes to the cart place
             HttpSession session = request.getSession();
