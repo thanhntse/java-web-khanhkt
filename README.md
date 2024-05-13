@@ -1,4 +1,4 @@
-# Java Web Application thanhnt
+# Java Web Application
 * Author: thanhntse
 ## Requirements
 
